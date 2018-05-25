@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -41,8 +42,9 @@ public class ImageDownloader3 {
 						continue;
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
-					break;
+					System.out.println("fail:" + e);
+					// e.printStackTrace();
+					continue;
 				}
 			}
 		}
@@ -52,11 +54,11 @@ public class ImageDownloader3 {
 		boolean result = false;
 		int imageIndex = 1;
 		String pageUrl = String.format(PAGE_URL_FORMAT, folderIndex, folderIndex, imageIndex);
-		Document doc = Jsoup.connect(pageUrl).get();
-		Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
-		String imageUrl = imageShowElement.attr("src");
-		System.out.println("downloading imageUrl:" + imageUrl);
-		String imageFolderName = String.format("%05d", folderIndex) + "_" + imageShowElement.attr("alt");
+		ImageObject imageObject = getImageUrlFromPage(pageUrl, folderIndex);
+		String imageUrl = imageObject.getImageUrl();
+
+		// System.out.println("fetching " + folderIndex + " imageUrl:" + imageUrl);
+		String imageFolderName = imageObject.getImageFolderName();
 		File imageFolder = new File(DOWNLOAD_PATH + imageFolderName);
 		if (!imageFolder.exists()) {
 			imageFolder.mkdir();
@@ -67,6 +69,9 @@ public class ImageDownloader3 {
 
 		boolean isRunning = true;
 		do {
+			pageUrl = String.format(PAGE_URL_FORMAT, folderIndex, folderIndex, imageIndex);
+			imageObject = getImageUrlFromPage(pageUrl, folderIndex);
+			imageUrl = imageObject.getImageUrl();
 			String imageName = String.format("%05d_%03d", folderIndex, imageIndex) + imageUrl.substring(imageUrl.lastIndexOf("."));
 			System.out.println("imageIndex:" + imageIndex + "    imageName:" + imageName);
 			File imageFile = new File(DOWNLOAD_PATH + imageFolderName + "/" + imageName);
@@ -81,6 +86,14 @@ public class ImageDownloader3 {
 		} while (isRunning);
 
 		return result;
+	}
+
+	private static ImageObject getImageUrlFromPage(String pageUrl, int folderIndex) throws Exception {
+		Document doc = Jsoup.connect(pageUrl).get();
+		Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
+		String imageUrl = imageShowElement.attr("src");
+		String imageFolderName = String.format("%05d", folderIndex) + "_" + imageShowElement.attr("alt");
+		return new ImageObject(imageUrl, imageFolderName);
 	}
 
 	public static void downloadImage(String urlString, String folderName, String filename) throws Exception {
@@ -103,6 +116,7 @@ public class ImageDownloader3 {
 		is.close();
 	}
 
+	/** download image one by one */
 	private static void main1() {
 		for (int i = 0; i < 20000 / THREAD_COUNT; i++) {
 			long startTime1 = System.currentTimeMillis();
@@ -119,4 +133,32 @@ public class ImageDownloader3 {
 			System.out.println("spend1 : " + (stopTime1 - startTime1) / 1000 + " secs");
 		}
 	}
+}
+
+class ImageObject {
+	private String imageUrl;
+	private String imageFolderName;
+
+	public ImageObject(String imageUrl, String imageFolderName) {
+		super();
+		this.imageUrl = imageUrl;
+		this.imageFolderName = imageFolderName;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getImageFolderName() {
+		return imageFolderName;
+	}
+
+	public void setImageFolderName(String imageFolderName) {
+		this.imageFolderName = imageFolderName;
+	}
+
 }
