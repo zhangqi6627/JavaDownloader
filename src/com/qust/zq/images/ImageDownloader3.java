@@ -35,26 +35,27 @@ public class ImageDownloader3 {
 		public void run() {
 			for (int i = 0; i < 22000 / THREAD_COUNT; i++) {
 				int downloadIndex = i * THREAD_COUNT + threadIndex;
-				String pageUrl = String.format(PAGE_URL_FORMAT, downloadIndex, downloadIndex);
 				try {
-					boolean downSuc = downloadImageUrlFromPage(pageUrl, downloadIndex);
+					boolean downSuc = downloadImageUrlFromPage(downloadIndex);
 					if (!downSuc) {
 						continue;
 					}
 				} catch (Exception e) {
-					System.err.println("" + e);
+					e.printStackTrace();
 					break;
 				}
 			}
 		}
 	}
 
-	private static boolean downloadImageUrlFromPage(String pageUrl, int folderIndex) throws Exception {
+	private static boolean downloadImageUrlFromPage(int folderIndex) throws Exception {
 		boolean result = false;
+		int imageIndex = 1;
+		String pageUrl = String.format(PAGE_URL_FORMAT, folderIndex, folderIndex, imageIndex);
 		Document doc = Jsoup.connect(pageUrl).get();
 		Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
 		String imageUrl = imageShowElement.attr("src");
-		// System.out.println("downloading imageUrl:" + imageUrl);
+		System.out.println("downloading imageUrl:" + imageUrl);
 		String imageFolderName = String.format("%05d", folderIndex) + "_" + imageShowElement.attr("alt");
 		File imageFolder = new File(DOWNLOAD_PATH + imageFolderName);
 		if (!imageFolder.exists()) {
@@ -63,7 +64,7 @@ public class ImageDownloader3 {
 			// folder exist
 			return false;
 		}
-		int imageIndex = 1;
+
 		boolean isRunning = true;
 		do {
 			String imageName = String.format("%05d_%03d", folderIndex, imageIndex) + imageUrl.substring(imageUrl.lastIndexOf("."));
@@ -105,9 +106,8 @@ public class ImageDownloader3 {
 	private static void main1() {
 		for (int i = 0; i < 20000 / THREAD_COUNT; i++) {
 			long startTime1 = System.currentTimeMillis();
-			String pageUrl = String.format(PAGE_URL_FORMAT, i, i);
 			try {
-				boolean downSuc = downloadImageUrlFromPage(pageUrl, i);
+				boolean downSuc = downloadImageUrlFromPage(i);
 				if (!downSuc) {
 					continue;
 				}
