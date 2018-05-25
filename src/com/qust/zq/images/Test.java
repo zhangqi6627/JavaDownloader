@@ -8,6 +8,7 @@ public class Test {
 		String imageUrl = "http://www.baidu.com/a.jpg";
 		String subString = imageUrl.substring(imageUrl.lastIndexOf("."));
 		System.out.println(subString);
+		Sysou
 		System.out.println("hello world");
 	}
 }
