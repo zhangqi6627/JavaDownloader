@@ -4,102 +4,106 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class ImageDownloader3 {
-	// http://www.umei.cc/meinvtupian/meinvxiezhen/130851_1.htm
 	// http://www.youzi4.cc/mm/20648/20648_1.html
-	public static final String DOWNLOAD_PATH = "/home/zq/MyFavorites/beautiful/";
+	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/youzi5/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.youzi4.cc/mm/%d/%d_%d.html";
-	public final static int THREAD_COUNT = 10;
-
 	public static void main(String[] args) {
-		for (int i = 0; i < THREAD_COUNT; i++) {
-			new Thread(new ImageDownloadThread(i)).start();
-		}
-	}
-
-	static class ImageDownloadThread implements Runnable {
-		private int threadIndex;
-
-		public ImageDownloadThread(int threadIndex) {
-			this.threadIndex = threadIndex;
-		}
-
-		@Override
-		public void run() {
-			for (int i = 0; i < 22000 / THREAD_COUNT; i++) {
-				int downloadIndex = i * THREAD_COUNT + threadIndex;
+		long startTime = System.currentTimeMillis();
+		for (int i = 18309; i < 20000; i++) {
+			long startTime1 = System.currentTimeMillis();
+			for (int k = 1; k < 100; k++) {
+				String pageUrl = String.format(PAGE_URL_FORMAT, i, i, k);
 				try {
-					boolean downSuc = downloadImageUrlFromPage(downloadIndex);
+					boolean downSuc = downloadImageUrlFromPage(pageUrl, i, k);
 					if (!downSuc) {
 						continue;
 					}
 				} catch (Exception e) {
-					System.out.println("fail:" + e);
-					// e.printStackTrace();
-					continue;
+					e.printStackTrace();
+					break;
 				}
 			}
+			long stopTime1 = System.currentTimeMillis();
+			System.out.println("spend1 : " + (stopTime1 - startTime1) / 1000 + " secs");
 		}
+		/*
+		 * for(int i = 0 ;i < 10;i++){ new Thread(new ImageDownloadThread(i)).start(); }
+		 */
+		long stopTime = System.currentTimeMillis();
+		System.out.println("total spend2 : " + (stopTime - startTime) / 1000);
 	}
-
-	private static boolean downloadImageUrlFromPage(int folderIndex) throws Exception {
-		boolean result = false;
-		int imageIndex = 1;
-		String pageUrl = String.format(PAGE_URL_FORMAT, folderIndex, folderIndex, imageIndex);
-		ImageObject imageObject = getImageUrlFromPage(pageUrl, folderIndex);
-		String imageUrl = imageObject.getImageUrl();
-
-		// System.out.println("fetching " + folderIndex + " imageUrl:" + imageUrl);
-		String imageFolderName = imageObject.getImageFolderName();
-		File imageFolder = new File(DOWNLOAD_PATH + imageFolderName);
-		if (!imageFolder.exists()) {
-			imageFolder.mkdir();
-		} else {
-			// folder exist
-			return false;
+	static class ImageDownloadThread implements Runnable {
+		private int threadIndex;
+		public ImageDownloadThread(int threadIndex) {
+			this.threadIndex = threadIndex;
 		}
-
-		boolean isRunning = true;
-		do {
-			pageUrl = String.format(PAGE_URL_FORMAT, folderIndex, folderIndex, imageIndex);
-			imageObject = getImageUrlFromPage(pageUrl, folderIndex);
-			imageUrl = imageObject.getImageUrl();
-			String imageName = String.format("%05d_%03d", folderIndex, imageIndex) + imageUrl.substring(imageUrl.lastIndexOf("."));
-			System.out.println("imageIndex:" + imageIndex + "    imageName:" + imageName);
-			File imageFile = new File(DOWNLOAD_PATH + imageFolderName + "/" + imageName);
-			if (imageFile.exists()) {
-				// image exist
-				isRunning = false;
-			} else {
-				downloadImage(imageUrl, imageFolderName, imageName);
-				imageIndex++;
-				result = true;
+		@Override
+		public void run() {
+			for (int i = 2044; i > 0; i--) {
+				long startTime1 = System.currentTimeMillis();
+				for (int k = 1; k < 100; k++) {
+					int downloadIndex = i * 10 + threadIndex;
+					String pageUrl = String.format(PAGE_URL_FORMAT, downloadIndex, downloadIndex, k);
+					try {
+						boolean downSuc = downloadImageUrlFromPage(pageUrl, downloadIndex, k);
+						if (!downSuc) {
+							continue;
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						break;
+					}
+				}
+				long stopTime1 = System.currentTimeMillis();
+				System.out.println("thread" + threadIndex + " spend1 : " + (stopTime1 - startTime1) / 1000 + " secs");
 			}
-		} while (isRunning);
-
-		return result;
+		}
 	}
-
-	private static ImageObject getImageUrlFromPage(String pageUrl, int folderIndex) throws Exception {
+	private static boolean downloadImageUrlFromPage(String pageUrl, int folderIndex, int imageIndex) throws Exception {
 		Document doc = Jsoup.connect(pageUrl).get();
 		Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
 		String imageUrl = imageShowElement.attr("src");
-		String imageFolderName = String.format("%05d", folderIndex) + "_" + imageShowElement.attr("alt");
-		return new ImageObject(imageUrl, imageFolderName);
+		System.out.println("downloading imageUrl:" + imageUrl);
+		String imageFolderName = folderIndex + "_" + imageShowElement.attr("alt");
+		File imageFolder = new File(DOWNLOAD_PATH + imageFolderName);
+		if (!imageFolder.exists()) {
+			imageFolder.mkdir();
+		}
+		String imageName = String.format(folderIndex + "_%03d", imageIndex);
+		String subFix = imageUrl.substring(imageUrl.lastIndexOf("."));
+		imageName += subFix;
+		File imageFile = new File(DOWNLOAD_PATH + imageFolderName + "/" + imageName);
+		if (imageFile.exists()) {
+			return false;
+		}
+		downloadImage(imageUrl, imageFolderName, imageName);
+		return true;
 	}
-
 	public static void downloadImage(String urlString, String folderName, String filename) throws Exception {
 		URL url = new URL(urlString);
-		URLConnection con = url.openConnection();
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+		con.setRequestProperty("Accept-Encoding", "gzip, deflate");
+		con.setRequestProperty("Accept-Language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
+		con.setRequestProperty("Cache-Control", "max-age=0");
+		con.setRequestProperty("Connection", "keep-alive");
+		con.setRequestProperty("Cookie", "BUSER=fe2e1477708d4f9b97f45ba54835e008; UM_distinctid=1654dd5f8c03a9-023b2432e39f09-3464790b-fa000-1654dd5f8d641a; CNZZDATA1272874627=747831528-1534606942-null%7C1534606942;Hm_lvt_a5380fe98a4f8ada8d996e42fd889959=1534609193");
+		con.setRequestProperty("Host", "www.youzi4.cc");
+		con.setRequestProperty("Referer", "http://www.youzi4.cc/mm/1/1_1.html");
+		con.setRequestProperty("Upgrade-Insecure-Requests", "1");
+		con.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36");
 		con.setConnectTimeout(5 * 1000);
+		con.connect();
 		InputStream is = con.getInputStream();
 		byte[] bs = new byte[1024];
 		int len;
@@ -115,50 +119,4 @@ public class ImageDownloader3 {
 		os.close();
 		is.close();
 	}
-
-	/** download image one by one */
-	private static void main1() {
-		for (int i = 0; i < 20000 / THREAD_COUNT; i++) {
-			long startTime1 = System.currentTimeMillis();
-			try {
-				boolean downSuc = downloadImageUrlFromPage(i);
-				if (!downSuc) {
-					continue;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				break;
-			}
-			long stopTime1 = System.currentTimeMillis();
-			System.out.println("spend1 : " + (stopTime1 - startTime1) / 1000 + " secs");
-		}
-	}
-}
-
-class ImageObject {
-	private String imageUrl;
-	private String imageFolderName;
-
-	public ImageObject(String imageUrl, String imageFolderName) {
-		super();
-		this.imageUrl = imageUrl;
-		this.imageFolderName = imageFolderName;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public String getImageFolderName() {
-		return imageFolderName;
-	}
-
-	public void setImageFolderName(String imageFolderName) {
-		this.imageFolderName = imageFolderName;
-	}
-
 }

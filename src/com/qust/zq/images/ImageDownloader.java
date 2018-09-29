@@ -13,12 +13,13 @@ import org.jsoup.select.Elements;
 
 public class ImageDownloader {
 	//8594
-	public static final String DOWNLOAD_PATH = "/home/zq/MyFavorites/images/";
+	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/images4/";
 	
 	public static int downloadCount = 0;
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
-		String pageUrlFormat = "http://zp2006.com/img_%s.html";
+		//http://mf94.xyz/ 这个就是zp2006
+		String pageUrlFormat = "http://mf94.xyz/img_%s.html";
 		for (int i = 8594; i <= 8700; i++) {
 			String pageUrl = String.format(pageUrlFormat, i);
 			downloadPageImages(pageUrl, i);
