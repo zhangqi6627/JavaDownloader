@@ -25,6 +25,7 @@ public class ImageDownloader {
 			downloadPageImages(pageUrl, i);
 		}
 		long stopTime = System.currentTimeMillis();
+		//
 	}
 	public static void downloadPageImages(String pageUrl, int index) {
 		try {
