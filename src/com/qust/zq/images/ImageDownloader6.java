@@ -18,14 +18,14 @@ public class ImageDownloader6 {
 	// https://www.nvshens.com/g/10000/
 	// http://www.xiugirls.com/album/10000 ---- http://www.xiugirls.com/album/27220
 	// http://img.semici.com/album/16293/10000/000.jpg
-	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/semici/";
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/semici/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://img.semici.com/album/16293/%05d/%03d.jpg";
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		for (int i = 10000; i < 20000; i++) {
 			long startTime1 = System.currentTimeMillis();
-			for (int k = 0; k < 100; k++) {
+			for (int k = 0; k < 200; k++) {
 				String pageUrl = String.format(PAGE_URL_FORMAT, i, k);
 				try {
 					downloadImage(pageUrl, String.format("%05d", i), String.format("%03d", k) + ".jpg");

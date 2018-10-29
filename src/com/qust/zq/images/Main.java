@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
 public class Main {
+	//程序猿专属解忧网站：http://www.ttn163.com
 	// https://www.ituba.cc/siwa/53171.html
 	// https://www.uumnt.cc/xinggan/28599.html
 	// http://www.umei.cc/meinvtupian/meinvxiezhen/130851_1.htm

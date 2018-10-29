@@ -12,9 +12,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ImageDownloader {
-	//8594
-	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/images4/";
-	
+	// 8594
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/zp2006/";
+
 	public static int downloadCount = 0;
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();

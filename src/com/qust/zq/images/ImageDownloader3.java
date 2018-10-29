@@ -14,12 +14,13 @@ import org.jsoup.select.Elements;
 
 public class ImageDownloader3 {
 	// http://www.youzi4.cc/mm/20648/20648_1.html
-	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/youzi5/";
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/youzi44/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.youzi4.cc/mm/%d/%d_%d.html";
+
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
-		for (int i = 18309; i < 20000; i++) {
+		for (int i = 1; i < 20000; i++) {
 			long startTime1 = System.currentTimeMillis();
 			for (int k = 1; k < 100; k++) {
 				String pageUrl = String.format(PAGE_URL_FORMAT, i, i, k);
@@ -42,11 +43,14 @@ public class ImageDownloader3 {
 		long stopTime = System.currentTimeMillis();
 		System.out.println("total spend2 : " + (stopTime - startTime) / 1000);
 	}
+
 	static class ImageDownloadThread implements Runnable {
 		private int threadIndex;
+
 		public ImageDownloadThread(int threadIndex) {
 			this.threadIndex = threadIndex;
 		}
+
 		@Override
 		public void run() {
 			for (int i = 2044; i > 0; i--) {
@@ -69,6 +73,7 @@ public class ImageDownloader3 {
 			}
 		}
 	}
+
 	private static boolean downloadImageUrlFromPage(String pageUrl, int folderIndex, int imageIndex) throws Exception {
 		Document doc = Jsoup.connect(pageUrl).get();
 		Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
@@ -89,19 +94,21 @@ public class ImageDownloader3 {
 		downloadImage(imageUrl, imageFolderName, imageName);
 		return true;
 	}
+
 	public static void downloadImage(String urlString, String folderName, String filename) throws Exception {
 		URL url = new URL(urlString);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-		con.setRequestProperty("Accept-Encoding", "gzip, deflate");
-		con.setRequestProperty("Accept-Language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
-		con.setRequestProperty("Cache-Control", "max-age=0");
-		con.setRequestProperty("Connection", "keep-alive");
-		con.setRequestProperty("Cookie", "BUSER=fe2e1477708d4f9b97f45ba54835e008; UM_distinctid=1654dd5f8c03a9-023b2432e39f09-3464790b-fa000-1654dd5f8d641a; CNZZDATA1272874627=747831528-1534606942-null%7C1534606942;Hm_lvt_a5380fe98a4f8ada8d996e42fd889959=1534609193");
-		con.setRequestProperty("Host", "www.youzi4.cc");
-		con.setRequestProperty("Referer", "http://www.youzi4.cc/mm/1/1_1.html");
-		con.setRequestProperty("Upgrade-Insecure-Requests", "1");
-		con.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36");
+		con.setRequestMethod("GET");
+		// con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+		// con.setRequestProperty("Accept-Encoding", "gzip, deflate");
+		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
+		// con.setRequestProperty("Cache-Control", "max-age=0");
+		// con.setRequestProperty("Connection", "keep-alive");
+		// con.setRequestProperty("Cookie", "BUSER=14926814c9082dbea329f1e363ca86df");
+		con.setRequestProperty("Referer", "http://www.youzi4.cc/mm/2/2_1.html");
+		// con.setRequestProperty("Host", "www.youzi4.cc");
+		// con.setRequestProperty("Upgrade-Insecure-Requests", "1");
+		con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36");
 		con.setConnectTimeout(5 * 1000);
 		con.connect();
 		InputStream is = con.getInputStream();

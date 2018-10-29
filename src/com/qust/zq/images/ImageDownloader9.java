@@ -17,7 +17,7 @@ import org.jsoup.select.Elements;
 public class ImageDownloader9 {
 	// 有反爬虫机制
 	// http://www.mzitu.com/1/1
-	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/mzitu/";
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/mzitu/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.mzitu.com/%d/%d";
 	public static void main(String[] args) {

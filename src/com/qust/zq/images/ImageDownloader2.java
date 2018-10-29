@@ -13,8 +13,9 @@ import org.jsoup.select.Elements;
 
 public class ImageDownloader2 {
 	// 8594
-	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/image2/";
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/image2/";
 	public static int downloadCount = 0;
+
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		String pageUrlFormat = "http://mf94.xyz/img_%s.html";
@@ -24,6 +25,7 @@ public class ImageDownloader2 {
 		}
 		long stopTime = System.currentTimeMillis();
 	}
+
 	public static void downloadPageImages(String pageUrl, int index) {
 		try {
 			Document doc = Jsoup.connect(pageUrl).get();
@@ -44,6 +46,7 @@ public class ImageDownloader2 {
 			e.printStackTrace();
 		}
 	}
+
 	public static void downloadImage(String urlString, String folderName, String filename) throws Exception {
 		URL url = new URL(urlString);
 		URLConnection con = url.openConnection();

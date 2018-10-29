@@ -14,7 +14,7 @@ import org.jsoup.nodes.Element;
 
 public class ImageDownloaderB {
 	// http://www.ili100.cn/a/1_3.html
-	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/ili100/";
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/ili100/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.ili100.cn/a/%d_%d.html";
 	public static void main(String[] args) {

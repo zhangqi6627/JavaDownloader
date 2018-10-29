@@ -17,7 +17,7 @@ import org.jsoup.select.Elements;
 public class ImageDownloader7 {
 	// http://www.girlsky.cn/article/1132 29000
 	// http://www.girlsky.cn/article/1132/2/
-	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/girlsky/";
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/girlsky/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.girlsky.cn/article/%d/%d/";
 	public static void main(String[] args) {

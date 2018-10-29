@@ -14,7 +14,7 @@ import org.jsoup.nodes.Element;
 
 public class ImageDownloaderA {
 	// http://www.win4000.com/meinv1_1.html  meinv108281
-	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/win4000/";
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/win4000/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.win4000.com/meinv%d_%d.html";
 	public static void main(String[] args) {

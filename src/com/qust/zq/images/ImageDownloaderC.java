@@ -15,7 +15,7 @@ import org.jsoup.select.Elements;
 
 public class ImageDownloaderC {
 	// http://www.xiugirls.com/album/10000
-	public static final String DOWNLOAD_PATH = "/Users/zhangqi/zq/xiugirls/";
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/xiugirls/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.xiugirls.com/album/%d";
 	public static void main(String[] args) {
