@@ -6,30 +6,31 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 public class ImageDownloaderA {
-	// http://www.win4000.com/meinv1_1.html  meinv108281
+	// http://www.win4000.com/meinv1_1.html meinv108281
 	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/win4000/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.win4000.com/meinv%d_%d.html";
+
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
-		for (int i = 5575; i < 20000; i++) {
+		// 5575
+		for (int i = 1; i < 20000; i++) {
+			AlbumBean albumBean = new AlbumBean();
 			long startTime1 = System.currentTimeMillis();
 			for (int k = 1; k < 100; k++) {
 				String pageUrl = String.format(PAGE_URL_FORMAT, i, k);
 				try {
-					boolean downSuc = downloadImageUrlFromPage(pageUrl, i, k);
+					boolean downSuc = downloadImageUrlFromPage(albumBean, pageUrl, i, k);
 					if (!downSuc) {
 						continue;
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					JsonTools.createJsonFile(albumBean.toJson().toString(), Constants.DOWNLOAD_PATH + "/jsons/win4000/", String.format("%05d", i));
 					break;
 				}
 			}
@@ -39,7 +40,8 @@ public class ImageDownloaderA {
 		long stopTime = System.currentTimeMillis();
 		System.out.println("total spend2 : " + (stopTime - startTime) / 1000);
 	}
-	private static boolean downloadImageUrlFromPage(String pageUrl, int folderIndex, int imageIndex) throws Exception {
+
+	private static boolean downloadImageUrlFromPage(AlbumBean albumBean, String pageUrl, int folderIndex, int imageIndex) throws Exception {
 		Document doc = Jsoup.connect(pageUrl).get();
 		String titleString = doc.getElementsByAttributeValue("name", "keywords").get(0).attr("content");
 		String imageUrl = doc.getElementsByClass("pic-large").get(0).attr("url");
@@ -48,6 +50,11 @@ public class ImageDownloaderA {
 		if (!imageFolder.exists()) {
 			imageFolder.mkdir();
 		}
+		albumBean.setWebIndex(4);
+		albumBean.setPageIndex(folderIndex);
+		albumBean.setTitle(imageFolderName);
+		albumBean.setAlbumImage(imageUrl);
+		albumBean.addImage(imageUrl);
 		System.out.println(String.format("%05d_%03d_%s_%s", folderIndex, imageIndex, titleString, imageUrl));
 		String imageName = String.format("%05d_%03d", folderIndex, imageIndex) + imageUrl.substring(imageUrl.lastIndexOf("."));
 		File imageFile = new File(DOWNLOAD_PATH + imageFolderName + "/" + imageName);
@@ -57,18 +64,10 @@ public class ImageDownloaderA {
 		downloadImage(imageUrl, imageFolderName, imageName);
 		return true;
 	}
+
 	public static void downloadImage(String urlString, String folderName, String filename) throws Exception {
 		URL url = new URL(urlString);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		// con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-		// con.setRequestProperty("Accept-Encoding", "gzip, deflate");
-		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
-		// con.setRequestProperty("Connection", "keep-alive");
-		// con.setRequestProperty("Accept-Charset", "  GB2312,utf-8;q=0.7,*;q=0.7");
-		// con.setRequestProperty("Host", "www.mmjpg.com");
-		// con.setRequestProperty("Upgrade-Insecure-Requests", "1");
-		// con.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36");
-		// con.setRequestProperty("Referer", "http://www.mmjpg.com/mm/2/2");
 		con.setConnectTimeout(5 * 1000);
 		con.connect();
 		InputStream is = con.getInputStream();

@@ -1,4 +1,4 @@
-package com.qust.zq.images;
+package com.qust.zq.videos;
 
 public class VideoDownloader {
 	/**

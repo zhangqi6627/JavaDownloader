@@ -1,4 +1,4 @@
-package com.qust.zq.images;
+package com.qust.zq.test;
 
 import java.awt.Button;
 import java.awt.FlowLayout;

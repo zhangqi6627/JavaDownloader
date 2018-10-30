@@ -1,11 +1,6 @@
 package com.qust.zq.images;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 

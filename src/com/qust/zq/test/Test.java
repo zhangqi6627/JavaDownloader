@@ -1,4 +1,4 @@
-package com.qust.zq.images;
+package com.qust.zq.test;
 
 import java.io.File;
 import java.io.FileOutputStream;

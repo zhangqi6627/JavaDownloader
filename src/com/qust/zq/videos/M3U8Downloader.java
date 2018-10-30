@@ -1,4 +1,4 @@
-package com.qust.zq.images;
+package com.qust.zq.videos;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.apache.commons.io.IOUtils;
+
+import com.qust.zq.images.FileUtils;
 
 public class M3U8Downloader {
 	// 1796-1863

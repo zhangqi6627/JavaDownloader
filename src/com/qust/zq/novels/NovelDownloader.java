@@ -1,4 +1,4 @@
-package com.qust.zq.images;
+package com.qust.zq.novels;
 
 import java.io.File;
 import java.io.FileOutputStream;

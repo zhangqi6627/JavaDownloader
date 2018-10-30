@@ -31,7 +31,8 @@ public class ImageDownloader6 {
 					downloadImage(pageUrl, String.format("%05d", i), String.format("%03d", k) + ".jpg");
 				} catch (Exception e) {
 					e.printStackTrace();
-					continue;
+					//continue;
+					break;
 				}
 			}
 			long stopTime1 = System.currentTimeMillis();
@@ -50,7 +51,7 @@ public class ImageDownloader6 {
 		String folderName = imageShowElement.attr("alt");
 		if (folderName.lastIndexOf(" ") != -1) {
 			folderName = folderName.substring(0, folderName.lastIndexOf(" "));
-			// System.out.println(folderName);
+			 System.out.println(folderName);
 		}
 		System.out.println("downloading imageUrl:" + imageUrl + " folderName:" + folderName);
 		String imageFolderName = String.format("%05d", folderIndex) + "_" + folderName;
