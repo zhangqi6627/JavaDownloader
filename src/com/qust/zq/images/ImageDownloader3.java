@@ -14,10 +14,10 @@ import org.jsoup.select.Elements;
 
 public class ImageDownloader3 {
 	// http://www.youzi4.cc/mm/20648/20648_1.html
-	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/youzi44/";
+	// http://www.47843.com/
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/youzi4/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.youzi4.cc/mm/%d/%d_%d.html";
-
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		for (int i = 1; i < 20000; i++) {
@@ -43,14 +43,11 @@ public class ImageDownloader3 {
 		long stopTime = System.currentTimeMillis();
 		System.out.println("total spend2 : " + (stopTime - startTime) / 1000);
 	}
-
 	static class ImageDownloadThread implements Runnable {
 		private int threadIndex;
-
 		public ImageDownloadThread(int threadIndex) {
 			this.threadIndex = threadIndex;
 		}
-
 		@Override
 		public void run() {
 			for (int i = 2044; i > 0; i--) {
@@ -73,7 +70,6 @@ public class ImageDownloader3 {
 			}
 		}
 	}
-
 	private static boolean downloadImageUrlFromPage(String pageUrl, int folderIndex, int imageIndex) throws Exception {
 		Document doc = Jsoup.connect(pageUrl).get();
 		Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
@@ -94,7 +90,6 @@ public class ImageDownloader3 {
 		downloadImage(imageUrl, imageFolderName, imageName);
 		return true;
 	}
-
 	public static void downloadImage(String urlString, String folderName, String filename) throws Exception {
 		URL url = new URL(urlString);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();

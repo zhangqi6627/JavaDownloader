@@ -5,7 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
 public class Main {
-	//程序猿专属解忧网站：http://www.ttn163.com
+	// 程序猿专属解忧网站：http://www.ttn163.com
 	// https://www.ituba.cc/siwa/53171.html
 	// https://www.uumnt.cc/xinggan/28599.html
 	// http://www.umei.cc/meinvtupian/meinvxiezhen/130851_1.htm
@@ -21,7 +21,6 @@ public class Main {
 	// http://www.17786.com/3419_1.html
 	// http://www.msntk.com/siwa/742.html
 	// http://www.mm4000.com/meinv/1.html 19610
-	// http://pic.720weixin.com/xingganmeinv/1745.html
 	// http://www.xiugirls.com/album/23860
 	// https://www.meituri.com/
 	// http://www.360meimei.com/siwa/
@@ -45,6 +44,34 @@ public class Main {
 	// http://www.kutuhui.com/meitu/21520.html
 	// http://www.meinv01.com/meinv/88/2911.html
 	// http://www.581148.com/10830.html
+	// http://www.ppmsg.org/xingganmeinv/201810/23948.html
+	// http://www.sangyy.cn/mingxingmeinv/20.html
+	// http://bbs.beicei.com/forum.php
+	// http://www.setuw.com/
+	// http://www.the6688.com/sexmv/ningmengvivixinggantupian.html
+	// http://www.ghost64.com/qqtouxiang/gexing/82163.html
+	// https://www.uumtu.com/xinggan/29072.html
+	// https://www.169tp.com/gaogensiwa/
+	// http://www.duomeitu.com/mntp/mnmt/7230.html
+	// http://www.mm4000.com/meinv/20441.html
+	// https://www.qqretu.com/zhifusiwa/34039.html
+	// http://www.meinv68.com/xinggan/519.html
+	// http://www.mtyoyo.com/xingganmn/11760.html
+	// http://www.5amn.com/meinv/93/3045.html
+	// https://www.u313.cn/qingchun/75.html
+	// http://www.tupianzj.com/meinv/20150729/22212.html
+	// http://mm.allcoolmen.com/jk/201709/157.html
+	// https://www.u313.cn/xinggan/14985_2.html
+	// http://www.qq325.com/korea/20120202235_2.html
+	// http://www.bpydw.com/qingchun/75.html 慢
+	// https://www.rtz.cc/html/siwameitui/bgeh21743.htm
+	// http://www.92mmdy.com/index.php?Article-index-id-96.html
+	// http://www.chuntiancat.com/xinggan/2468.html
+	// http://tu.aiai6.com/meinv/2016/0108/185565_4.html
+	// https://www.24mn.org/2018/10-29/tuimo33663_2.html
+	// https://www.99c9.com/xinggan/2330_6.html
+	// http://www.zhiqi88.com/tephymzbjnxzjxhscnwoltwpy/
+	// http://www.liangtupian.com/meinv/
 	// ///////////////////////////////////////////////
 	// ======================sesesesese=======================
 	// https://www.xnxx.com/video-j57df60/_18av.cc
