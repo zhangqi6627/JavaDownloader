@@ -1,29 +1,44 @@
 package com.qust.zq.images;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 public class ImageDownloader3 {
 	// http://www.youzi4.cc/mm/20648/20648_1.html
 	// http://www.47843.com/
-	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/youzi4/";
-	public static int downloadCount = 0;
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/youzi5/";
 	public final static String PAGE_URL_FORMAT = "http://www.youzi4.cc/mm/%d/%d_%d.html";
+	//
+	public final static int WEB_INDEX_1 = 1;
+	public final static int WEB_INDEX_2 = 2;
+	public final static int WEB_INDEX_3 = 3;
+	public final static int WEB_INDEX_4 = 4;
+	public final static int WEB_INDEX_5 = 5;
 	public static void main(String[] args) {
-		long startTime = System.currentTimeMillis();
+		int webIndex = 3;
 		for (int i = 1; i < 20000; i++) {
-			long startTime1 = System.currentTimeMillis();
-			for (int k = 1; k < 100; k++) {
+			AlbumBean albumBean = new AlbumBean();
+			for (int k = 1; k < 200; k++) {
 				String pageUrl = String.format(PAGE_URL_FORMAT, i, i, k);
+				switch(webIndex){
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
+				case 6:
+					break;
+				case 7:
+					break;
+					
+				}
 				try {
 					boolean downSuc = downloadImageUrlFromPage(pageUrl, i, k);
 					if (!downSuc) {
@@ -33,40 +48,6 @@ public class ImageDownloader3 {
 					e.printStackTrace();
 					break;
 				}
-			}
-			long stopTime1 = System.currentTimeMillis();
-			System.out.println("spend1 : " + (stopTime1 - startTime1) / 1000 + " secs");
-		}
-		/*
-		 * for(int i = 0 ;i < 10;i++){ new Thread(new ImageDownloadThread(i)).start(); }
-		 */
-		long stopTime = System.currentTimeMillis();
-		System.out.println("total spend2 : " + (stopTime - startTime) / 1000);
-	}
-	static class ImageDownloadThread implements Runnable {
-		private int threadIndex;
-		public ImageDownloadThread(int threadIndex) {
-			this.threadIndex = threadIndex;
-		}
-		@Override
-		public void run() {
-			for (int i = 2044; i > 0; i--) {
-				long startTime1 = System.currentTimeMillis();
-				for (int k = 1; k < 100; k++) {
-					int downloadIndex = i * 10 + threadIndex;
-					String pageUrl = String.format(PAGE_URL_FORMAT, downloadIndex, downloadIndex, k);
-					try {
-						boolean downSuc = downloadImageUrlFromPage(pageUrl, downloadIndex, k);
-						if (!downSuc) {
-							continue;
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-						break;
-					}
-				}
-				long stopTime1 = System.currentTimeMillis();
-				System.out.println("thread" + threadIndex + " spend1 : " + (stopTime1 - startTime1) / 1000 + " secs");
 			}
 		}
 	}
@@ -87,38 +68,7 @@ public class ImageDownloader3 {
 		if (imageFile.exists()) {
 			return false;
 		}
-		downloadImage(imageUrl, imageFolderName, imageName);
+		ImageUtils.downloadImage(3, imageUrl, DOWNLOAD_PATH, imageFolderName, imageName);
 		return true;
-	}
-	public static void downloadImage(String urlString, String folderName, String filename) throws Exception {
-		URL url = new URL(urlString);
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("GET");
-		// con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-		// con.setRequestProperty("Accept-Encoding", "gzip, deflate");
-		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
-		// con.setRequestProperty("Cache-Control", "max-age=0");
-		// con.setRequestProperty("Connection", "keep-alive");
-		// con.setRequestProperty("Cookie", "BUSER=14926814c9082dbea329f1e363ca86df");
-		con.setRequestProperty("Referer", "http://www.youzi4.cc/mm/2/2_1.html");
-		// con.setRequestProperty("Host", "www.youzi4.cc");
-		// con.setRequestProperty("Upgrade-Insecure-Requests", "1");
-		con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36");
-		con.setConnectTimeout(5 * 1000);
-		con.connect();
-		InputStream is = con.getInputStream();
-		byte[] bs = new byte[1024];
-		int len;
-		File sf = new File(DOWNLOAD_PATH + folderName);
-		if (!sf.exists()) {
-			sf.mkdirs();
-		}
-		OutputStream os = new FileOutputStream(sf.getPath() + "/" + filename);
-		while ((len = is.read(bs)) != -1) {
-			os.write(bs, 0, len);
-		}
-		downloadCount++;
-		os.close();
-		is.close();
 	}
 }

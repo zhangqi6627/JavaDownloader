@@ -13,8 +13,7 @@ import org.jsoup.nodes.Element;
 public class ImageDownloader4 {
 	// 有反爬虫机制
 	// http://www.mmjpg.com/mm/1
-	public static final String DOWNLOAD_PATH = "/home/zq/MyFavorites/mmjpg/";
-	public static int downloadCount = 0;
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/mmjpg/";
 	public final static String PAGE_URL_FORMAT = "http://www.mmjpg.com/mm/%d/%d";
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
@@ -22,7 +21,7 @@ public class ImageDownloader4 {
 		for (int i = 1; i < 20000; i++) {
 			long startTime1 = System.currentTimeMillis();
 			AlbumBean albumBean = new AlbumBean();
-			for (int k = 1; k < 100; k++) {
+			for (int k = 1; k < 200; k++) {
 				String pageUrl = String.format(PAGE_URL_FORMAT, i, k);
 				try {
 					boolean downSuc = downloadImageUrlFromPage(albumBean, pageUrl, i, k);
@@ -68,20 +67,20 @@ public class ImageDownloader4 {
 		if (imageFile.exists()) {
 			return false;
 		}
-		//downloadImage(imageUrl, imageFolderName, imageName);
+		// downloadImage(imageUrl, imageFolderName, imageName);
 		return true;
 	}
 	public static void downloadImage(String urlString, String folderName, String filename) throws Exception {
 		URL url = new URL(urlString);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestProperty("Accept", "image/webp,image/apng,image/*,*/*;q=0.8");
-        con.setRequestProperty("Accept-Encoding", "gzip, deflate");
-        con.setRequestProperty("Accept-Language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
-        con.setRequestProperty("Connection", "keep-alive");
-        con.setRequestProperty("Host", "fm.shiyunjj.com");
-        con.setRequestProperty("Upgrade-Insecure-Requests", "1");
-        con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36");
-        con.setRequestProperty("Referer", "http://www.mmjpg.com/mm/108/1");
+		con.setRequestProperty("Accept", "image/webp,image/apng,image/*,*/*;q=0.8");
+		con.setRequestProperty("Accept-Encoding", "gzip, deflate");
+		con.setRequestProperty("Accept-Language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
+		con.setRequestProperty("Connection", "keep-alive");
+		con.setRequestProperty("Host", "fm.shiyunjj.com");
+		con.setRequestProperty("Upgrade-Insecure-Requests", "1");
+		con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36");
+		con.setRequestProperty("Referer", "http://www.mmjpg.com/mm/108/1");
 		con.setConnectTimeout(5 * 1000);
 		con.connect();
 		InputStream is = con.getInputStream();
@@ -95,7 +94,6 @@ public class ImageDownloader4 {
 		while ((len = is.read(bs)) != -1) {
 			os.write(bs, 0, len);
 		}
-		downloadCount++;
 		os.close();
 		is.close();
 	}

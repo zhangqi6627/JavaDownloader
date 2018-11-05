@@ -16,7 +16,7 @@ import org.jsoup.select.Elements;
 
 public class ImageDownloader8 {
 	// http://zhyuge.com/picture/detail?pictureId=1
-	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/zhyuge.com/";
+	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/zhyuge/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://zhyuge.com/picture/detail?pictureId=%d";
 	public static void main(String[] args) {

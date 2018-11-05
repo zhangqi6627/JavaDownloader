@@ -11,11 +11,8 @@ public class AlbumBean {
 	private String albumImage;
 	private int albumSize;
 	private ArrayList<String> images;
-
 	public AlbumBean() {
-
 	}
-
 	public AlbumBean(JSONObject jsonObject) {
 		int webIndex = jsonObject.getInt("WebIndex");
 		int pageIndex = jsonObject.getInt("PageIndex");
@@ -28,46 +25,49 @@ public class AlbumBean {
 			System.out.println(imageUrl);
 		}
 	}
-
 	public AlbumBean setWebIndex(int webIndex) {
 		if (this.webIndex != webIndex) {
 			this.webIndex = webIndex;
 		}
 		return this;
 	}
-
 	public AlbumBean setPageIndex(int pageIndex) {
 		if (this.pageIndex != pageIndex) {
 			this.pageIndex = pageIndex;
 		}
-
 		return this;
 	}
-
 	public AlbumBean setTitle(String title) {
 		if (this.title == null) {
 			this.title = title;
 		}
-
 		return this;
 	}
-
 	public AlbumBean setAlbumImage(String albumImage) {
 		if (this.albumImage == null) {
 			this.albumImage = albumImage;
 		}
 		return this;
 	}
-
 	public AlbumBean addImage(String image) {
 		if (images == null) {
 			images = new ArrayList<>();
 		}
+		setAlbumImage(image);
 		images.add(image);
 		albumSize = images.size();
 		return this;
 	}
-
+	public int getImagesSize() {
+		if (images == null) {
+			return 0;
+		}
+		return images.size();
+	}
+	@Override
+	public String toString() {
+		return String.format("%02d_%06d_%s", webIndex, pageIndex, title);
+	}
 	public JSONObject toJson() {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("WebIndex", webIndex);
@@ -79,7 +79,6 @@ public class AlbumBean {
 		jsonObject.put("Images", jsonArray);
 		return jsonObject;
 	}
-
 	public static void main(String[] args) {
 		AlbumBean mAlbumBean = new AlbumBean().setWebIndex(4).setPageIndex(1).setTitle("meitu11").setAlbumImage("www.baidu.com").addImage("www.gg.com").addImage("www.yy.com");
 		System.out.println("a:" + mAlbumBean.toJson());
