@@ -4,6 +4,9 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
+/**
+ * java 如何访问https请求
+ */
 public class Main {
 	// https://www.ituba.cc/siwa/53171.html
 	// https://www.uumnt.cc/xinggan/28599.html
@@ -17,14 +20,13 @@ public class Main {
 	// https://www.rtz.cc/html/siwameitui/
 	// http://pic.720weixin.com/18jin/1171.html
 	// http://www.27270.com/ent/meinvtupian/2018/273580.html 超美
-	// http://www.17786.com/3419_1.html
+	// ///////////////////////////////////////////////////////////////////////////// http://www.17786.com/3419_1.html
 	// http://www.msntk.com/siwa/742.html
-	// http://www.mm4000.com/meinv/1.html 19610
+	// ///////////////////////////////////////////////////////////////////////////// http://www.mm4000.com/meinv/1.html 19610
 	// ///////////////////////////////////////////////////////////////////////////// http://www.xiugirls.com/album/23860
-	// https://www.meituri.com/
 	// http://www.360meimei.com/siwa/
 	// http://www.meituba.com/xinggan/63977.html
-	// http://www.gn899.com/41226
+	// http://www.gn899.com/41226 ------------------server error
 	// http://tu.jiachong.net/a/siwameinv/198467.html
 	// http://m.136ysw.com/a/jiankangtuku/xingganmeinv/38.html
 	// https://www.nvshens.com/g/27668/
@@ -33,7 +35,7 @@ public class Main {
 	// http://www.mm035.com/gaoqing/20171219223032.html
 	// http://www.nvshenge.com/mntp/1000.html
 	// http://www.immtp.com/siwameinv/69.html
-	// http://www.94xmn.com/
+	// http://www.94xmn.com/xingganmeinv/2018/1017/1312.html
 	// http://www.yuanfentk.com/tuku/mingxing/4466.html
 	// http://www.260111.com/siwameitui/201806/35245.html
 	// https://rtz.nhxdfs.com/html/siwameitui/cwph50421.htm
@@ -54,7 +56,6 @@ public class Main {
 	// http://www.duomeitu.com/mntp/mnmt/7230.html
 	// http://www.mm4000.com/meinv/20441.html
 	// https://www.qqretu.com/zhifusiwa/34039.html
-	// http://www.meinv68.com/xinggan/519.html
 	// http://www.mtyoyo.com/xingganmn/11760.html
 	// http://www.5amn.com/meinv/93/3045.html
 	// https://www.u313.cn/qingchun/75.html
@@ -65,12 +66,37 @@ public class Main {
 	// http://www.bpydw.com/qingchun/75.html 慢
 	// https://www.rtz.cc/html/siwameitui/bgeh21743.htm
 	// http://www.92mmdy.com/index.php?Article-index-id-96.html
-	// http://www.chuntiancat.com/xinggan/2468.html
 	// http://tu.aiai6.com/meinv/2016/0108/185565_4.html
 	// https://www.24mn.org/2018/10-29/tuimo33663_2.html
 	// https://www.99c9.com/xinggan/2330_6.html
 	// http://www.zhiqi88.com/tephymzbjnxzjxhscnwoltwpy/
 	// http://www.liangtupian.com/meinv/
+	// http://www.131mmw.com/html/xingganmeinv/20181106/4843.html
+	// http://www.2345meinv.com/siwa/2444.html
+	// http://www.vesm.net/xg/54174.html
+	// http://www.ccmntu.com/qcmn/1004.html
+	// http://meinv.ixiues.com/weimei/3209.html
+	// http://www.mm035.com/gaoqing/20181030234207.html
+	// http://www.5151cai.org/xinggan/8226.html
+	// http://www.ilovgou.com/xg/54015_2.html
+	// http://www.yesemn.com/mm/xingganmeinv/2014/0306/680_2.html
+	// http://www.meinv68.com/hanguo/528_2.html
+	// http://www.meinvha.com/qingchun/1974_2.html
+	// https://www.meituri.com/a/3000/
+	// http://5199168.com/1.html
+	// http://www.mmjpeg.com/meitu/145.html
+	// http://www.mxgjd.com/xinggan/9043-2.html
+	// http://www.21900.net/meinv/527_2.html
+	// http://www.99mm.me/xinggan/2997.html
+	// http://www.lukayi.com/gaoqing/20180516001633-18.html
+	// http://www.mm8mm88.com/tupian/1-2.html
+	// http://www.mtuol.com/meinv/nvyou/3937_2.html
+	// http://www.guotuw.com/xiezhen/9585.html
+	// http://www.jitaotu.com/qingchun/70226_2.html
+	// https://www.sxtp.net/meinv/201802/45243.html
+	// http://www.chuntiancat.com/qingchun/1530_2.html
+	// http://www.nvshentu.com/xingganmeinv/10185.html
+	// https://www.27mn.com/meinv/851.html
 	// ///////////////////////////////////////////////
 	// ======================sesesesese=======================
 	// https://www.xnxx.com/video-j57df60/_18av.cc
@@ -96,7 +122,6 @@ public class Main {
 		// loadKFJ();
 		load131();
 	}
-
 	// 很卡 http://www.mm131.com/xinggan/1501.html ---- http://www.mm131.com/xinggan/4265.html
 	private static void load131() {
 		String[] tags = new String[] { "qingchun", "xinggan", "xiaohua", "chemo", "qipao", "mingxing" };
@@ -116,11 +141,6 @@ public class Main {
 			}
 		}
 	}
-
-	//
-	private static void downloadMMjpg() {
-	}
-
 	// https://kongfj.com/?p=3145
 	private static void loadKFJ() {
 		for (int i = 1; i < 4000; i++) {
@@ -129,52 +149,10 @@ public class Main {
 				Jsoup.connect(urlString + i).timeout(5000).get();
 				System.out.println(i + ":" + (urlString + i));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				// e.printStackTrace();
 				System.out.println(i + ":" + e.getMessage());
 			}
 		}
 	}
-
-	// http://www.17786.com/1_1.html
-	// http://www.17786.com/ent/meinvtupian/53566.html 52185-53566
-	private static void load17786() {
-		int leftIndex = 1;
-		int rightIndex = 1;
-		boolean isExist = true;
-		do {
-			String urlString = "http://www.17786.com/" + ((leftIndex + rightIndex) / 2) + "_1.html";
-			try {
-				Elements elements = Jsoup.connect(urlString).timeout(5000).get().getElementsByClass("IMG_show");
-				if (elements.size() > 0) {
-					System.out.println(urlString);
-					isExist = true;
-					leftIndex = rightIndex;
-					rightIndex = rightIndex * 2;
-				} else {
-					System.out.println("page not found1 " + urlString);
-					// isExist = false;
-					rightIndex = (rightIndex + leftIndex) / 2;
-				}
-			} catch (IOException e) {
-				System.out.println("page not found2 " + urlString);
-				// isExist = false;
-				rightIndex = (rightIndex + leftIndex) / 2;
-			}
-		} while (isExist);
-		for (int i = 1; i < 1000; i++) {
-			String urlString = "http://www.17786.com/" + i + "_1.html";
-			try {
-				Jsoup.connect(urlString).timeout(5000).get();
-				System.out.println(urlString);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				// e.printStackTrace();
-				System.out.println("page not found");
-			}
-		}
-	}
-
 	// https://www.aitaotu.com/guonei/1.html
 	private static void loadAiTaoTu() {
 		String[] types = new String[] { "guonei", "rihan", "gangtai", "jingpin", "pinpai" };
@@ -194,7 +172,6 @@ public class Main {
 			}
 		}
 	}
-
 	// http://92mntu.com/xgmn/1026.html
 	private static void load92MNTU() {
 		final String[] types = new String[] { "qcmn", "xgmn", "swmt", "rhmn", "mncm", "mnmx" };

@@ -26,25 +26,21 @@ public class WebSiteBean {
 			DOWNLOAD_PATH = "/Users/zhangqi/zq/images/";
 		}
 	}
-
 	public static void main(String[] args) {
 		//
 		boolean download3 = false;
 		if (download3) {
 			new WebSiteBean(3, "youzi4", "http://www.youzi4.cc/mm/%d/%d_%d.html", "http://www.youzi4.cc/mm/1/1_1.html").downloadAll(new ImageProxy() {
-
 				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
 					String imageUrl = imageShowElement.attr("src");
 					return imageUrl;
 				}
-
 				public String getAlbumName(Document doc, int albumIndex) {
 					Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
 					String albumName = imageShowElement.attr("alt");
 					return albumName;
 				}
-
 				@Override
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, albumIndex, imageIndex);
@@ -62,7 +58,6 @@ public class WebSiteBean {
 					String imageUrl = imageShowElement.attr("src");
 					return imageUrl;
 				}
-
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					Element contentElement = doc.getElementsByClass("content").get(0);
@@ -73,7 +68,6 @@ public class WebSiteBean {
 					}
 					return albumName;
 				}
-
 				@Override
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
@@ -88,12 +82,10 @@ public class WebSiteBean {
 				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
 				}
-
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					return String.format("%06d", albumIndex);
 				}
-
 				@Override
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
@@ -108,12 +100,10 @@ public class WebSiteBean {
 				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
 				}
-
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					return String.format("%06d", albumIndex);
 				}
-
 				@Override
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
@@ -128,7 +118,6 @@ public class WebSiteBean {
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
 				}
-
 				@Override
 				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					Element pictureElement = doc.getElementsByAttributeValue("id", "picture").get(0);
@@ -136,7 +125,6 @@ public class WebSiteBean {
 					String imageUrl = imageShowElement.attr("src");
 					return imageUrl;
 				}
-
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					String albumName = doc.getElementsByAttributeValue("name", "description").get(0).attr("content");
@@ -152,12 +140,10 @@ public class WebSiteBean {
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return null;
 				}
-
 				@Override
 				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					return null;
 				}
-
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					return null;
@@ -172,7 +158,6 @@ public class WebSiteBean {
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
 				}
-
 				@Override
 				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					Element mainImageElement = doc.getElementsByClass("main-image").get(0);
@@ -180,7 +165,6 @@ public class WebSiteBean {
 					String imageUrl = imageShowElement.attr("src");
 					return imageUrl;
 				}
-
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					Element mainImageElement = doc.getElementsByClass("main-image").get(0);
@@ -201,13 +185,11 @@ public class WebSiteBean {
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
 				}
-
 				@Override
 				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					String imageUrl = doc.getElementsByClass("pic-large").get(0).attr("url");
 					return imageUrl;
 				}
-
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					String albumName = doc.getElementsByAttributeValue("name", "keywords").get(0).attr("content");
@@ -223,18 +205,16 @@ public class WebSiteBean {
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
 				}
-
 				@Override
 				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					String imageUrl = "http://www.ili100.cn/" + doc.getElementById("bigimg").attr("src");
 					return imageUrl;
 				}
-
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					String albumName = doc.getElementById("T-bt").ownText();
 					if (albumName.indexOf("(") > 0) {
-						albumName = albumName.substring(0, albumName.indexOf("("));
+						albumName = albumName.substring(0, albumName.lastIndexOf("("));
 					}
 					return albumName;
 				}
@@ -248,13 +228,11 @@ public class WebSiteBean {
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
 				}
-
 				@Override
 				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					String imageUrl = "http://www.ili100.cn/" + doc.getElementById("bigimg").attr("src");
 					return imageUrl;
 				}
-
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					String albumName = doc.getElementById("T-bt").ownText();
@@ -265,12 +243,74 @@ public class WebSiteBean {
 				}
 			});
 		}
+		//
+		boolean download13 = false;
+		if (download13) {
+			new WebSiteBean(13, "17786", "http://www.17786.com/%d_%d.html", "http://www.17786.com/1_2.html").downloadAll(new ImageProxy() {
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					Element imageElement = doc.getElementsByClass("IMG_show").get(0);
+					String imageUrl = imageElement.attr("src");
+					return imageUrl;
+				}
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
+					String albumName = imageShowElement.attr("alt");
+					albumName = albumName.substring(0, albumName.indexOf("("));
+					System.out.println("albumName:" + albumName);
+					return albumName;
+				}
+			});
+		}
+		//
+		boolean download14 = false;
+		if (download14) {
+			new WebSiteBean(14, "mm4000", "http://www.mm4000.com/meinv/%d_%d.html", "").downloadAll(new ImageProxy() {
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					Element imageElement = doc.getElementById("bigImg");
+					String imageUrl = imageElement.attr("src");
+					return imageUrl;
+				}
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					Element imageElement = doc.getElementById("bigImg");
+					String albumName = imageElement.attr("title");
+					return albumName;
+				}
+			});
+		}
+		//
+		boolean download15 = true;
+		if (download15) {
+			new WebSiteBean(15, "", "http://www.kutuhui.com/meitu/91.html", "").downloadAll(new ImageProxy() {
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return null;
+				}
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					return null;
+				}
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					return null;
+				}
+			});
+		}
 	}
-
 	public String getPageUrlFormat() {
 		return pageUrlFormat;
 	}
-
 	public WebSiteBean(int webIndex, String webName, String pageUrlFormat, String refererUrl) {
 		this.webIndex = webIndex;
 		this.webName = webName;
@@ -278,7 +318,6 @@ public class WebSiteBean {
 		this.refererUrl = refererUrl;
 		downloadPath = DOWNLOAD_PATH + webName + "/";
 	}
-
 	public void downloadAll(ImageProxy imageProxy) {
 		this.imageProxy = imageProxy;
 		for (int i = 1; i < 20000; i++) {
@@ -301,9 +340,7 @@ public class WebSiteBean {
 			}
 		}
 	}
-
 	private ImageProxy imageProxy;
-
 	private boolean downloadImageUrlFromPage(AlbumBean albumBean, String pageUrl, int albumIndex, int imageIndex) throws Exception {
 		Document doc = null;
 		/*
@@ -333,9 +370,9 @@ public class WebSiteBean {
 		downloadImage(imageUrl, imageFile);
 		return true;
 	}
-
 	/** download image from url to file */
 	private void downloadImage(String urlString, File imageFile) throws Exception {
+		imageFile.createNewFile();// why downloading first album it will be not exist
 		InputStream is = getConnection(webIndex, urlString).getInputStream();
 		byte[] bs = new byte[1024];
 		int len;
@@ -346,7 +383,6 @@ public class WebSiteBean {
 		os.close();
 		is.close();
 	}
-
 	private HttpURLConnection getConnection(int webIndex, String urlString) throws IOException {
 		URL url = new URL(urlString);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -358,9 +394,7 @@ public class WebSiteBean {
 		con.setRequestProperty("Upgrade-Insecure-Requests", "1");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36");
 		con.setRequestProperty("Referer", refererUrl);
-		con.setRequestProperty(
-				"Cookie",
-				"UM_distinctid=1654e424357610-091dd6d937f02e-3464790b-fa000-1654e424358148; CNZZDATA1255357127=443251054-1534616107-https%253A%252F%252Fwww.google.com.hk%252F%7C1534616107; Hm_lvt_1e2b00875d672f10b4eee3965366013f=1534616290; CNZZDATA1255487232=1541027707-1534610964-%7C1534616396");
+		con.setRequestProperty("Cookie", "UM_distinctid=1654e424357610-091dd6d937f02e-3464790b-fa000-1654e424358148; CNZZDATA1255357127=443251054-1534616107-https%253A%252F%252Fwww.google.com.hk%252F%7C1534616107; Hm_lvt_1e2b00875d672f10b4eee3965366013f=1534616290; CNZZDATA1255487232=1541027707-1534610964-%7C1534616396");
 		con.setRequestProperty("Upgrade-Insecure-Requests", "1");
 		imageProxy.setRequestHeader(con);
 		con.setConnectTimeout(5 * 1000);
@@ -370,13 +404,9 @@ public class WebSiteBean {
 }
 
 abstract class ImageProxy {
-
 	public abstract String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex);
-
 	public abstract String getAlbumName(Document doc, int albumIndex);
-
 	public abstract String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex);
-
 	public void setRequestHeader(HttpURLConnection urlConnection) {
 	}
 }
