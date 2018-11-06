@@ -18,16 +18,18 @@ public class WebSiteBean {
 	private String downloadPath;
 	private String webName;
 	public static String DOWNLOAD_PATH = "/Users/zhangqi/zq/images/";
-
-	public static void main(String[] args) {
-		boolean download3 = false;
+	static {
 		String os = System.getProperty("os.name");
-		System.out.println(os);
 		if (os.equalsIgnoreCase("Linux")) {
 			DOWNLOAD_PATH = "/home/zq/MyFavorites/";
 		} else if (os.equalsIgnoreCase("Mac")) {
 			DOWNLOAD_PATH = "/Users/zhangqi/zq/images/";
 		}
+	}
+
+	public static void main(String[] args) {
+		//
+		boolean download3 = false;
 		if (download3) {
 			new WebSiteBean(3, "youzi4", "http://www.youzi4.cc/mm/%d/%d_%d.html", "http://www.youzi4.cc/mm/1/1_1.html").downloadAll(new ImageProxy() {
 
@@ -142,8 +144,8 @@ public class WebSiteBean {
 				}
 			});
 		}
-		//
-		boolean download8 = true;
+		// not yet : this site is different with the others
+		boolean download8 = false;
 		if (download8) {
 			new WebSiteBean(8, "zhyuge", "http://zhyuge.com/picture/detail?pictureId=%d", "").downloadAll(new ImageProxy() {
 				@Override
@@ -159,6 +161,107 @@ public class WebSiteBean {
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					return null;
+				}
+			});
+		}
+		//
+		boolean download9 = false;
+		if (download9) {
+			new WebSiteBean(9, "mzitu", "http://www.mzitu.com/%d/%d", "http://www.mzitu.com/100/2").downloadAll(new ImageProxy() {
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					Element mainImageElement = doc.getElementsByClass("main-image").get(0);
+					Element imageShowElement = mainImageElement.getElementsByTag("img").get(0);
+					String imageUrl = imageShowElement.attr("src");
+					return imageUrl;
+				}
+
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					Element mainImageElement = doc.getElementsByClass("main-image").get(0);
+					Element imageShowElement = mainImageElement.getElementsByTag("img").get(0);
+					String albumName = imageShowElement.attr("alt");
+					if (albumName.lastIndexOf(" ") != -1) {
+						albumName = albumName.substring(0, albumName.lastIndexOf(" "));
+					}
+					return albumName;
+				}
+			});
+		}
+		//
+		boolean download10 = false;
+		if (download10) {
+			new WebSiteBean(10, "win4000", "http://www.win4000.com/meinv%d_%d.html", "").downloadAll(new ImageProxy() {
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					String imageUrl = doc.getElementsByClass("pic-large").get(0).attr("url");
+					return imageUrl;
+				}
+
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					String albumName = doc.getElementsByAttributeValue("name", "keywords").get(0).attr("content");
+					return albumName;
+				}
+			});
+		}
+		// not yet : can not find http://www.ili100.cn/a/17_1.html
+		boolean download11 = false;
+		if (download11) {
+			new WebSiteBean(11, "ili100", "http://www.ili100.cn/a/%d_%d.html", "").downloadAll(new ImageProxy() {
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					String imageUrl = "http://www.ili100.cn/" + doc.getElementById("bigimg").attr("src");
+					return imageUrl;
+				}
+
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					String albumName = doc.getElementById("T-bt").ownText();
+					if (albumName.indexOf("(") > 0) {
+						albumName = albumName.substring(0, albumName.indexOf("("));
+					}
+					return albumName;
+				}
+			});
+		}
+		// not yet : the same with download8
+		boolean download12 = false;
+		if (download12) {
+			new WebSiteBean(12, "xiugirls", "http://www.xiugirls.com/album/%d", "").downloadAll(new ImageProxy() {
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					String imageUrl = "http://www.ili100.cn/" + doc.getElementById("bigimg").attr("src");
+					return imageUrl;
+				}
+
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					String albumName = doc.getElementById("T-bt").ownText();
+					if (albumName.indexOf("(") > 0) {
+						albumName = albumName.substring(0, albumName.indexOf("("));
+					}
+					return albumName;
 				}
 			});
 		}
@@ -251,7 +354,7 @@ public class WebSiteBean {
 		con.setRequestProperty("Accept-Encoding", "gzip, deflate");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
 		con.setRequestProperty("Connection", "keep-alive");
-		con.setRequestProperty("Host", "www.meitulu.com");
+		// con.setRequestProperty("Host", "www.meitulu.com");
 		con.setRequestProperty("Upgrade-Insecure-Requests", "1");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36");
 		con.setRequestProperty("Referer", refererUrl);

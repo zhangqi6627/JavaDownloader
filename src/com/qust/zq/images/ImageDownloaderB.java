@@ -14,9 +14,10 @@ import org.jsoup.nodes.Element;
 
 public class ImageDownloaderB {
 	// http://www.ili100.cn/a/1_3.html
-	public static final String DOWNLOAD_PATH = Constants.DOWNLOAD_PATH + "/ili100/";
+	public static final String DOWNLOAD_PATH = WebSiteBean.DOWNLOAD_PATH + "/ili100/";
 	public static int downloadCount = 0;
 	public final static String PAGE_URL_FORMAT = "http://www.ili100.cn/a/%d_%d.html";
+
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		for (int i = 1; i < 20000; i++) {
@@ -42,6 +43,7 @@ public class ImageDownloaderB {
 		long stopTime = System.currentTimeMillis();
 		System.out.println("total spend2 : " + (stopTime - startTime) / 1000);
 	}
+
 	private static boolean downloadImageUrlFromPage(String pageUrl, int folderIndex, int imageIndex) throws Exception {
 		Document doc = Jsoup.connect(pageUrl).get();
 		String titleString = doc.getElementById("T-bt").ownText();
@@ -64,18 +66,10 @@ public class ImageDownloaderB {
 		downloadImage(imageUrl, imageFolderName, imageName);
 		return true;
 	}
+
 	public static void downloadImage(String urlString, String folderName, String filename) throws Exception {
 		URL url = new URL(urlString);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		// con.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-		// con.setRequestProperty("Accept-Encoding", "gzip, deflate");
-		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
-		// con.setRequestProperty("Connection", "keep-alive");
-		// con.setRequestProperty("Accept-Charset", "  GB2312,utf-8;q=0.7,*;q=0.7");
-		// con.setRequestProperty("Host", "www.mmjpg.com");
-		// con.setRequestProperty("Upgrade-Insecure-Requests", "1");
-		// con.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36");
-		// con.setRequestProperty("Referer", "http://www.mmjpg.com/mm/2/2");
 		con.setConnectTimeout(5 * 1000);
 		con.connect();
 		InputStream is = con.getInputStream();

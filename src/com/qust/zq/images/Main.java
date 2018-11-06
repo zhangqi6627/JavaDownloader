@@ -5,12 +5,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 
 public class Main {
-	// 程序猿专属解忧网站：http://www.ttn163.com
 	// https://www.ituba.cc/siwa/53171.html
 	// https://www.uumnt.cc/xinggan/28599.html
 	// http://www.umei.cc/meinvtupian/meinvxiezhen/130851_1.htm
 	// http://www.jj20.com/bz/nxxz/
-	// http://www.mzitu.com/
+	// ///////////////////////////////////////////////////////////////////////////// http://www.mzitu.com/
 	// http://www.duitoo.com/ent/lianglimeimo/83922.html
 	// https://www.192tt.com/meitu/38733.html
 	// http://www.mmonly.cc/mmtp/xgmn/235873_29.html
@@ -21,7 +20,7 @@ public class Main {
 	// http://www.17786.com/3419_1.html
 	// http://www.msntk.com/siwa/742.html
 	// http://www.mm4000.com/meinv/1.html 19610
-	// http://www.xiugirls.com/album/23860
+	// ///////////////////////////////////////////////////////////////////////////// http://www.xiugirls.com/album/23860
 	// https://www.meituri.com/
 	// http://www.360meimei.com/siwa/
 	// http://www.meituba.com/xinggan/63977.html
@@ -97,6 +96,7 @@ public class Main {
 		// loadKFJ();
 		load131();
 	}
+
 	// 很卡 http://www.mm131.com/xinggan/1501.html ---- http://www.mm131.com/xinggan/4265.html
 	private static void load131() {
 		String[] tags = new String[] { "qingchun", "xinggan", "xiaohua", "chemo", "qipao", "mingxing" };
@@ -116,9 +116,11 @@ public class Main {
 			}
 		}
 	}
+
 	//
 	private static void downloadMMjpg() {
 	}
+
 	// https://kongfj.com/?p=3145
 	private static void loadKFJ() {
 		for (int i = 1; i < 4000; i++) {
@@ -133,6 +135,7 @@ public class Main {
 			}
 		}
 	}
+
 	// http://www.17786.com/1_1.html
 	// http://www.17786.com/ent/meinvtupian/53566.html 52185-53566
 	private static void load17786() {
@@ -171,6 +174,7 @@ public class Main {
 			}
 		}
 	}
+
 	// https://www.aitaotu.com/guonei/1.html
 	private static void loadAiTaoTu() {
 		String[] types = new String[] { "guonei", "rihan", "gangtai", "jingpin", "pinpai" };
@@ -190,6 +194,7 @@ public class Main {
 			}
 		}
 	}
+
 	// http://92mntu.com/xgmn/1026.html
 	private static void load92MNTU() {
 		final String[] types = new String[] { "qcmn", "xgmn", "swmt", "rhmn", "mncm", "mnmx" };
