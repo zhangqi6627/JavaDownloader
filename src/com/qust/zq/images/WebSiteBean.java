@@ -17,130 +17,172 @@ public class WebSiteBean {
 	private String refererUrl;
 	private String downloadPath;
 	private String webName;
-	public final static String DOWNLOAD_PATH = "/Users/zhangqi/zq/images/";
+	public static String DOWNLOAD_PATH = "/Users/zhangqi/zq/images/";
+
 	public static void main(String[] args) {
 		boolean download3 = false;
+		String os = System.getProperty("os.name");
+		System.out.println(os);
+		if (os.equalsIgnoreCase("Linux")) {
+			DOWNLOAD_PATH = "/home/zq/MyFavorites/";
+		} else if (os.equalsIgnoreCase("Mac")) {
+			DOWNLOAD_PATH = "/Users/zhangqi/zq/images/";
+		}
 		if (download3) {
-			new WebSiteBean(new ImageProxy() {
-				@Override
-				public int getWebIndex() {
-					return 3;
-				}
-				@Override
-				public String getWebName() {
-					return "youzi4";
-				}
-				@Override
-				public String getRefererUrl() {
-					return "http://www.youzi4.cc/mm/1/1_1.html";
-				}
-				@Override
-				public String getPageUrlFormat() {
-					return "http://www.youzi4.cc/mm/%d/%d_%d.html";
-				}
-				@Override
-				public String getImageUrl(Document doc, int albumIndex, int imageIndex) {
+			new WebSiteBean(3, "youzi4", "http://www.youzi4.cc/mm/%d/%d_%d.html", "http://www.youzi4.cc/mm/1/1_1.html").downloadAll(new ImageProxy() {
+
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
 					Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
 					String imageUrl = imageShowElement.attr("src");
 					return imageUrl;
 				}
-				@Override
+
 				public String getAlbumName(Document doc, int albumIndex) {
 					Element imageShowElement = doc.getElementsByClass("IMG_show").get(0);
 					String albumName = imageShowElement.attr("alt");
 					return albumName;
 				}
-			}).downloadAll();
+
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, albumIndex, imageIndex);
+				}
+			});
 		}
 		//
 		boolean download4 = false;
 		if (download4) {
-			new WebSiteBean(new ImageProxy() {
+			new WebSiteBean(4, "mmjpg", "http://www.mmjpg.com/mm/%d/%d", "http://www.mmjpg.com/mm/1/1").downloadAll(new ImageProxy() {
 				@Override
-				public String getWebName() {
-					return "mmjpg";
-				}
-				@Override
-				public int getWebIndex() {
-					return 4;
-				}
-				@Override
-				public String getRefererUrl() {
-					return "http://www.mmjpg.com/mm/1/1";
-				}
-				@Override
-				public String getPageUrlFormat() {
-					return "http://www.mmjpg.com/mm/%d/%d";
-				}
-				@Override
-				public String getImageUrl(Document doc, int albumInde, int imageIndex) {
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumInde, int imageIndex) {
 					Element contentElement = doc.getElementsByClass("content").get(0);
 					Element imageShowElement = contentElement.getElementsByTag("img").get(0);
 					String imageUrl = imageShowElement.attr("src");
 					return imageUrl;
 				}
+
 				@Override
 				public String getAlbumName(Document doc, int albumIndex) {
 					Element contentElement = doc.getElementsByClass("content").get(0);
 					Element imageShowElement = contentElement.getElementsByTag("img").get(0);
-					String folderName = imageShowElement.attr("alt");
-					if (folderName.lastIndexOf(" ") != -1) {
-						folderName = folderName.substring(0, folderName.lastIndexOf(" "));
+					String albumName = imageShowElement.attr("alt");
+					if (albumName.lastIndexOf(" ") != -1) {
+						albumName = albumName.substring(0, albumName.lastIndexOf(" "));
 					}
-					return folderName;
+					return albumName;
 				}
-			}).downloadAll();
+
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+			});
 		}
 		//
 		boolean download5 = false;
-		new WebSiteBean(new ImageProxy() {
-			@Override
-			public String getWebName() {
-				return "meitulu";
-			}
-			@Override
-			public int getWebIndex() {
-				return 5;
-			}
-			@Override
-			public String getRefererUrl() {
-				return "https://www.meitulu.com/item/3_2.html";
-			}
-			@Override
-			public String getPageUrlFormat() {
-				return "https://mtl.ttsqgs.com/images/img/%d/%d.jpg";
-			}
-			@Override
-			public String getImageUrl(Document doc, int albumIndex, int imageIndex) {
-				return String.format(getPageUrlFormat(), albumIndex, imageIndex);
-			}
-			@Override
-			public String getAlbumName(Document doc, int albumIndex) {
-				return String.format("%06d", albumIndex);
-			}
-		}).downloadAll();
+		if (download5) {
+			new WebSiteBean(5, "meitulu", "https://mtl.ttsqgs.com/images/img/%d/%d.jpg", "https://www.meitulu.com/item/3_2.html").downloadAll(new ImageProxy() {
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					return String.format("%06d", albumIndex);
+				}
+
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+			});
+		}
+		// not yet : java.io.FileNotFoundException: http://img.semici.com/album/16293/00011/001.jpg
+		boolean download6 = false;
+		if (download6) {
+			new WebSiteBean(6, "semici", "http://img.semici.com/album/16293/%05d/%03d.jpg", "").downloadAll(new ImageProxy() {
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					return String.format("%06d", albumIndex);
+				}
+
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+			});
+		}
+		//
+		boolean download7 = false;
+		if (download7) {
+			new WebSiteBean(7, "girlsky", "http://www.girlsky.cn/article/%d/%d/", "").downloadAll(new ImageProxy() {
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return String.format(pageUrlFormat, albumIndex, imageIndex);
+				}
+
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					Element pictureElement = doc.getElementsByAttributeValue("id", "picture").get(0);
+					Element imageShowElement = pictureElement.getElementsByTag("img").get(0);
+					String imageUrl = imageShowElement.attr("src");
+					return imageUrl;
+				}
+
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					String albumName = doc.getElementsByAttributeValue("name", "description").get(0).attr("content");
+					return albumName;
+				}
+			});
+		}
+		//
+		boolean download8 = true;
+		if (download8) {
+			new WebSiteBean(8, "zhyuge", "http://zhyuge.com/picture/detail?pictureId=%d", "").downloadAll(new ImageProxy() {
+				@Override
+				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
+					return null;
+				}
+
+				@Override
+				public String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex) {
+					return null;
+				}
+
+				@Override
+				public String getAlbumName(Document doc, int albumIndex) {
+					return null;
+				}
+			});
+		}
 	}
-	public WebSiteBean(ImageProxy imageProxy) {
-		this.imageProxy = imageProxy;
-		this.webIndex = imageProxy.getWebIndex();
-		this.pageUrlFormat = imageProxy.getPageUrlFormat();
-		this.refererUrl = imageProxy.getRefererUrl();
-		this.webName = imageProxy.getWebName();
+
+	public String getPageUrlFormat() {
+		return pageUrlFormat;
+	}
+
+	public WebSiteBean(int webIndex, String webName, String pageUrlFormat, String refererUrl) {
+		this.webIndex = webIndex;
+		this.webName = webName;
+		this.pageUrlFormat = pageUrlFormat;
+		this.refererUrl = refererUrl;
 		downloadPath = DOWNLOAD_PATH + webName + "/";
 	}
-	public void downloadAll() {
+
+	public void downloadAll(ImageProxy imageProxy) {
+		this.imageProxy = imageProxy;
 		for (int i = 1; i < 20000; i++) {
 			AlbumBean albumBean = new AlbumBean();
 			albumBean.setWebIndex(webIndex);
 			for (int k = 1; k < 200; k++) {
-				String pageUrl = String.format(pageUrlFormat, i, i, k);
-				if (webIndex == 3) {
-					pageUrl = String.format(pageUrlFormat, i, i, k);
-				} else if (webIndex == 4) {
-					pageUrl = String.format(pageUrlFormat, i, k);
-				} else if (webIndex == 5) {
-					pageUrl = String.format(pageUrlFormat, i, k);
-				}
+				String pageUrl = imageProxy.getPageUrl(pageUrlFormat, i, k);
 				try {
 					boolean downSuc = downloadImageUrlFromPage(albumBean, pageUrl, i, k);
 					if (!downSuc) {
@@ -156,21 +198,18 @@ public class WebSiteBean {
 			}
 		}
 	}
-	public interface ImageProxy {
-		public String getPageUrlFormat();
-		public String getWebName();
-		public int getWebIndex();
-		public String getRefererUrl();
-		public String getImageUrl(Document doc, int albumIndex, int imageIndex);
-		public String getAlbumName(Document doc, int albumIndex);
-	}
+
 	private ImageProxy imageProxy;
+
 	private boolean downloadImageUrlFromPage(AlbumBean albumBean, String pageUrl, int albumIndex, int imageIndex) throws Exception {
 		Document doc = null;
-		if (webIndex != 5) {
+		/*
+		 * need optimize ?????
+		 */
+		if (webIndex != 5 && webIndex != 6) {
 			doc = Jsoup.connect(pageUrl).get();
 		}
-		String imageUrl = imageProxy.getImageUrl(doc, albumIndex, imageIndex);
+		String imageUrl = imageProxy.getImageUrl(doc, pageUrlFormat, albumIndex, imageIndex);
 		String albumTitle = imageProxy.getAlbumName(doc, albumIndex);
 		String folderName = albumIndex + "_" + albumTitle;
 		File imageFolder = new File(downloadPath + folderName);
@@ -191,6 +230,8 @@ public class WebSiteBean {
 		downloadImage(imageUrl, imageFile);
 		return true;
 	}
+
+	/** download image from url to file */
 	private void downloadImage(String urlString, File imageFile) throws Exception {
 		InputStream is = getConnection(webIndex, urlString).getInputStream();
 		byte[] bs = new byte[1024];
@@ -202,6 +243,7 @@ public class WebSiteBean {
 		os.close();
 		is.close();
 	}
+
 	private HttpURLConnection getConnection(int webIndex, String urlString) throws IOException {
 		URL url = new URL(urlString);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -213,10 +255,25 @@ public class WebSiteBean {
 		con.setRequestProperty("Upgrade-Insecure-Requests", "1");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36");
 		con.setRequestProperty("Referer", refererUrl);
-		con.setRequestProperty("Cookie", "UM_distinctid=1654e424357610-091dd6d937f02e-3464790b-fa000-1654e424358148; CNZZDATA1255357127=443251054-1534616107-https%253A%252F%252Fwww.google.com.hk%252F%7C1534616107; Hm_lvt_1e2b00875d672f10b4eee3965366013f=1534616290; CNZZDATA1255487232=1541027707-1534610964-%7C1534616396");
+		con.setRequestProperty(
+				"Cookie",
+				"UM_distinctid=1654e424357610-091dd6d937f02e-3464790b-fa000-1654e424358148; CNZZDATA1255357127=443251054-1534616107-https%253A%252F%252Fwww.google.com.hk%252F%7C1534616107; Hm_lvt_1e2b00875d672f10b4eee3965366013f=1534616290; CNZZDATA1255487232=1541027707-1534610964-%7C1534616396");
 		con.setRequestProperty("Upgrade-Insecure-Requests", "1");
+		imageProxy.setRequestHeader(con);
 		con.setConnectTimeout(5 * 1000);
 		con.connect();
 		return con;
+	}
+}
+
+abstract class ImageProxy {
+
+	public abstract String getImageUrl(Document doc, String pageUrlFormat, int albumIndex, int imageIndex);
+
+	public abstract String getAlbumName(Document doc, int albumIndex);
+
+	public abstract String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex);
+
+	public void setRequestHeader(HttpURLConnection urlConnection) {
 	}
 }
