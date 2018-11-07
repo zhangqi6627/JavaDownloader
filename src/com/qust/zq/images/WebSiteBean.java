@@ -21,7 +21,7 @@ public class WebSiteBean {
 	static {
 		String os = System.getProperty("os.name");
 		if (os.equalsIgnoreCase("Linux")) {
-			DOWNLOAD_PATH = "/home/zq/MyFavorites/";
+			DOWNLOAD_PATH = "/media/zq/passion/favorites/";
 		} else if (os.equalsIgnoreCase("Mac")) {
 			DOWNLOAD_PATH = "/Users/zhangqi/zq/images/";
 		}
@@ -177,10 +177,10 @@ public class WebSiteBean {
 				}
 			});
 		}
-		//
+		// start from 11870
 		boolean download10 = false;
 		if (download10) {
-			new WebSiteBean(10, "win4000", "http://www.win4000.com/meinv%d_%d.html", "").downloadAll(new ImageProxy() {
+			new WebSiteBean(10, "win4000X", "http://www.win4000.com/meinv%d_%d.html", "").downloadAll(new ImageProxy() {
 				@Override
 				public String getPageUrl(String pageUrlFormat, int albumIndex, int imageIndex) {
 					return String.format(pageUrlFormat, albumIndex, imageIndex);
@@ -290,7 +290,7 @@ public class WebSiteBean {
 			});
 		}
 		//
-		boolean download15 = true;
+		boolean download15 = false;
 		if (download15) {
 			new WebSiteBean(15, "", "http://www.kutuhui.com/meitu/91.html", "").downloadAll(new ImageProxy() {
 				@Override
@@ -320,7 +320,7 @@ public class WebSiteBean {
 	}
 	public void downloadAll(ImageProxy imageProxy) {
 		this.imageProxy = imageProxy;
-		for (int i = 1; i < 20000; i++) {
+		for (int i = 1; i < 200000; i++) {
 			AlbumBean albumBean = new AlbumBean();
 			albumBean.setWebIndex(webIndex);
 			for (int k = 1; k < 200; k++) {
